@@ -2,7 +2,7 @@
 
 **INSPIRE MANAK Awardee 2023 · Department of Science & Technology, Govt. of India**  
 C/C++ Certified (Grade A) · IIT Kanpur B.Cyber Applicant 2026  
-Ghaziabad, NCR | [thetechnophile2023@gmail.com](mailto:thetechnophile2023@gmail.com) | [Portfolio Website](https://krishnaaggarwal-cybersecurity.github.io/cybersecurity-portfolio/)
+Ghaziabad, NCR | [thetechnophile2023@gmail.com](mailto:thetechnophile2023@gmail.com) | [Portfolio Website](https://krishnaaggarwal-cybersecurity.github.io/IIT-KANPUR-cybersecurity-portfolio/)
 
 ---
 
