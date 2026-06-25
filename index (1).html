@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishna Aggarwal | Cybersecurity Portfolio</title>
+  <style>
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --border:    #21262d;
+      --accent:    #58a6ff;
+      --accent2:   #3fb950;
+      --warn:      #f0883e;
+      --red:       #ff4444;
+      --text:      #e6edf3;
+      --muted:     #8b949e;
+      --font-mono: 'Courier New', Courier, monospace;
+      --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ──────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,17,23,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      color: var(--accent2);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--text); }
+
+    /* ── HERO ─────────────────────────────── */
+    #hero {
+      padding: 6rem 2rem 5rem;
+      max-width: 960px; margin: 0 auto;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.3);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.08em;
+    }
+    #hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+    #hero h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    .hero-cta {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d1117;
+    }
+    .btn-primary:hover { background: #79b8ff; }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── STATS BAR ────────────────────────── */
+    .stats-bar {
+      max-width: 960px; margin: 0 auto 5rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--font-mono);
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── SECTIONS ─────────────────────────── */
+    section {
+      max-width: 960px; margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--accent2);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .section-intro {
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 640px;
+    }
+
+    /* ── PROJECTS GRID ────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .card:hover::before { opacity: 1; }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .tag-network  { background: rgba(88,166,255,0.12); color: var(--accent); }
+    .tag-forensics{ background: rgba(240,136,62,0.12); color: var(--warn); }
+    .tag-crypto   { background: rgba(63,185,80,0.12);  color: var(--accent2); }
+    .tag-steg     { background: rgba(188,140,255,0.12); color: #bc8cff; }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .card-concepts {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .concept {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .card-link {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--font-mono);
+    }
+    .card-link:hover { text-decoration: underline; }
+
+    /* ── WRITEUPS ─────────────────────────── */
+    .writeup-list { display: flex; flex-direction: column; gap: 1rem; }
+    .writeup-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: border-color 0.2s;
+    }
+    .writeup-item:hover { border-color: var(--accent2); }
+    .writeup-icon {
+      font-size: 1.5rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .writeup-item h3 {
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem;
+    }
+    .writeup-item p {
+      font-size: 0.825rem; color: var(--muted);
+    }
+
+    /* ── ACHIEVEMENTS ─────────────────────── */
+    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 1.25rem;
+    }
+    .tl-dot {
+      position: absolute;
+      left: -1.85rem;
+      top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+    .tl-item.top .tl-dot { background: var(--accent); }
+    .tl-year {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+    .tl-item h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .tl-item p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .tl-badge {
+      display: inline-block;
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.3);
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── SKILLS ───────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .skill-group h3 {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .skill-group ul {
+      list-style: none;
+    }
+    .skill-group li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 3px 0;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skill-group li::before {
+      content: '▸';
+      color: var(--accent);
+      font-size: 0.7rem;
+    }
+
+    /* ── CONTACT ──────────────────────────── */
+    #contact {
+      text-align: center;
+      padding: 4rem 2rem 6rem;
+    }
+    #contact h2 { margin-bottom: 1rem; }
+    #contact p { color: var(--muted); margin-bottom: 2rem; }
+    .contact-links {
+      display: flex; flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .contact-card:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ───────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    /* ── TERMINAL BLOCK ───────────────────── */
+    .terminal {
+      background: #010409;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+    }
+    .t-prompt { color: var(--accent2); }
+    .t-cmd    { color: var(--text); }
+    .t-out    { color: var(--muted); }
+    .t-ok     { color: var(--accent2); }
+    .t-warn   { color: var(--warn); }
+
+    /* ── DIVIDER ──────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      #hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>~/</span>krishna_aggarwal</div>
+  <ul>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">INSPIRE MANAK Awardee · DST, Govt. of India</div>
+  <h1>Krishna <span>Aggarwal</span></h1>
+  <p class="hero-sub">
+    I build systems from first principles — then figure out how to break them.
+    Security tools in C, cryptanalysis, network forensics, steganography.
+    IIT Kanpur B.Cybersecurity Applicant 2026.
+  </p>
+  <div class="hero-cta">
+    <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio"
+       class="btn btn-primary" target="_blank">GitHub Repository</a>
+    <a href="#projects" class="btn btn-outline">See My Work</a>
+    <a href="mailto:thetechnophile2023@gmail.com" class="btn btn-outline">Contact</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">7</div>
+    <div class="stat-label">Security Tools Built</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Research Writeups</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">C/C++</div>
+    <div class="stat-label">Grade A Certified</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">2023</div>
+    <div class="stat-label">INSPIRE MANAK</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">17</div>
+    <div class="stat-label">Years Old</div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// projects</div>
+  <h2>Security Tools</h2>
+  <p class="section-intro">
+    Every tool was built to answer a question: <em>how does this work, how does it fail,
+    and how would an attacker use it?</em> All implemented from scratch in C.
+  </p>
+
+  <!-- Terminal snippet -->
+  <div class="terminal">
+    <div><span class="t-prompt">krishna@kali</span>:<span class="t-cmd">~/tools</span>$ ls -la *.c</div>
+    <div class="t-out">port_scanner.c &nbsp;&nbsp;&nbsp;file_integrity.c &nbsp;&nbsp;hex_dump.c</div>
+    <div class="t-out">lsb_steganography.c &nbsp;caesar_cipher.c &nbsp;vigenere_cipher.c &nbsp;xor_cipher.c</div>
+    <div><span class="t-prompt">krishna@kali</span>:<span class="t-cmd">~/tools</span>$ gcc -o port_scanner port_scanner.c && ./port_scanner 127.0.0.1 1 1024</div>
+    <div class="t-ok">[OPEN] 22 &nbsp;&nbsp; SSH</div>
+    <div class="t-ok">[OPEN] 80 &nbsp;&nbsp; HTTP</div>
+    <div class="t-ok">[OPEN] 443 &nbsp; HTTPS</div>
+    <div class="t-out">Scan complete. Total: 1024 | Open: 3 | Closed/Filtered: 1021</div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Port Scanner -->
+    <div class="card">
+      <span class="card-tag tag-network">Network Security</span>
+      <h3>TCP Connect Port Scanner</h3>
+      <p>Non-blocking TCP port scanner using <code>select()</code> with configurable timeout.
+         Identifies open ports and maps them to well-known services.
+         First step in any authorized network reconnaissance.</p>
+      <div class="card-concepts">
+        <span class="concept">TCP handshake</span>
+        <span class="concept">SOCK_STREAM</span>
+        <span class="concept">O_NONBLOCK</span>
+        <span class="concept">select()</span>
+        <span class="concept">service enumeration</span>
+      </div>
+      <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio/blob/main/port_scanner.c"
+         class="card-link" target="_blank">→ View source</a>
+    </div>
+
+    <!-- File Integrity -->
+    <div class="card">
+      <span class="card-tag tag-forensics">Forensics / HIDS</span>
+      <h3>File Integrity Monitor</h3>
+      <p>Computes Adler-32 checksums over monitored files and alerts on modification,
+         deletion, or size mismatch. Core concept behind Tripwire, AIDE, and OSSEC.
+         Baseline stored with timestamps and file metadata.</p>
+      <div class="card-concepts">
+        <span class="concept">Adler-32</span>
+        <span class="concept">HIDS</span>
+        <span class="concept">tamper detection</span>
+        <span class="concept">baseline drift</span>
+      </div>
+      <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio/blob/main/file_integrity.c"
+         class="card-link" target="_blank">→ View source</a>
+    </div>
+
+    <!-- Hex Dump -->
+    <div class="card">
+      <span class="card-tag tag-forensics">Binary Forensics</span>
+      <h3>Hex Dump &amp; Binary Analyser</h3>
+      <p>Binary file inspector with file-signature identification (magic bytes),
+         hex + ASCII display, arbitrary offset/range viewing, ASCII string search,
+         and Shannon entropy analysis per 256-byte block — high entropy signals
+         encrypted or packed sections.</p>
+      <div class="card-concepts">
+        <span class="concept">magic bytes</span>
+        <span class="concept">Shannon entropy</span>
+        <span class="concept">binary analysis</span>
+        <span class="concept">string extraction</span>
+      </div>
+      <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio/blob/main/hex_dump.c"
+         class="card-link" target="_blank">→ View source</a>
+    </div>
+
+    <!-- LSB Steg -->
+    <div class="card">
+      <span class="card-tag tag-steg">Steganography</span>
+      <h3>LSB Steganography Tool</h3>
+      <p>Hides and extracts messages in the Least Significant Bit of 24-bit BMP pixel
+         data. Includes LSB distribution analysis (chi-square approximation) for
+         detection. APT groups use this technique for C2 over CDN-hosted images.</p>
+      <div class="card-concepts">
+        <span class="concept">covert channels</span>
+        <span class="concept">BMP format</span>
+        <span class="concept">chi-square</span>
+        <span class="concept">C2 evasion</span>
+        <span class="concept">steg detection</span>
+      </div>
+      <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio/blob/main/lsb_steganography.c"
+         class="card-link" target="_blank">→ View source</a>
+    </div>
+
+    <!-- Caesar -->
+    <div class="card">
+      <span class="card-tag tag-crypto">Cryptography</span>
+      <h3>Classical Cipher Suite</h3>
+      <p>Caesar, Vigenère, and XOR ciphers — implemented to be broken, not used.
+         Demonstrates frequency analysis, Kasiski examination, and OTP theory.
+         Accompanied by a full cryptanalysis writeup explaining each failure mode.</p>
+      <div class="card-concepts">
+        <span class="concept">frequency analysis</span>
+        <span class="concept">Kasiski test</span>
+        <span class="concept">XOR / OTP</span>
+        <span class="concept">key reuse attacks</span>
+      </div>
+      <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio"
+         class="card-link" target="_blank">→ View source</a>
+    </div>
+
+    <!-- Password -->
+    <div class="card">
+      <span class="card-tag tag-crypto">Cryptography</span>
+      <h3>Password Strength Evaluator</h3>
+      <p>Entropy-based password strength analyser. Computes effective key space from
+         character set size and length. Detects common patterns, dictionary indicators,
+         and keyboard walks. Provides actionable feedback.</p>
+      <div class="card-concepts">
+        <span class="concept">entropy</span>
+        <span class="concept">character sets</span>
+        <span class="concept">pattern detection</span>
+        <span class="concept">credential hardening</span>
+      </div>
+      <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio/blob/main/password_strength.c"
+         class="card-link" target="_blank">→ View source</a>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- RESEARCH WRITEUPS -->
+<section id="research">
+  <div class="section-label">// research</div>
+  <h2>Security Writeups</h2>
+  <p class="section-intro">
+    Documented analysis of security concepts — not summaries,
+    but original explanations with implementations and attack/defence reasoning.
+  </p>
+  <div class="writeup-list">
+    <div class="writeup-item">
+      <div class="writeup-icon">🔐</div>
+      <div>
+        <h3>Why Classical Ciphers Fail: A Cryptanalysis Perspective</h3>
+        <p>Frequency analysis on Caesar (broken in ≤25 guesses), Kasiski examination
+           on Vigenère (key length recovery via PoV spacing), key-reuse attacks on XOR.
+           The progression from substitution ciphers to AES — every step motivated by
+           the attack that broke the previous design.</p>
+        <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio/blob/main/writeups/cryptanalysis_classical_ciphers.md"
+           style="color: var(--accent); font-size: 0.8rem; font-family: monospace;"
+           target="_blank">→ Read writeup</a>
+      </div>
+    </div>
+    <div class="writeup-item">
+      <div class="writeup-icon">🖼️</div>
+      <div>
+        <h3>LSB Steganography: How It Works, How It's Used, How It's Detected</h3>
+        <p>Full technical explanation of LSB embedding in 24-bit BMP images, capacity
+           calculations, BMP format internals. Real APT group usage (Turla, APT28).
+           Detection methods: chi-square attack, RS analysis, StegExpose, zsteg.
+           Why JPEG lossy compression destroys LSB payloads and how steganographers
+           work around it.</p>
+        <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio/blob/main/writeups/lsb_steganography_explained.md"
+           style="color: var(--accent); font-size: 0.8rem; font-family: monospace;"
+           target="_blank">→ Read writeup</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">// achievements</div>
+  <h2>Achievements</h2>
+  <p class="section-intro">
+    Verified external recognition of work done before formal training.
+  </p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2023 · Age 14</div>
+      <div class="tl-badge">🏆 GOVERNMENT AWARDED</div>
+      <h3>INSPIRE MANAK Award — DST, Govt. of India</h3>
+      <p>₹10,000 cash prize. Selected by the Department of Science & Technology
+         for a portable automatic washing machine built without a kit or instructions.
+         Shortlisted from district → state → national level screening.
+         District / State Level Award — Science Project, GNCT Delhi, Directorate of Education.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <h3>C &amp; C++ Certificate — Grade A</h3>
+      <p>ICE Computer Education, Sahibabad. Proficiency in data structures,
+         memory management, pointers, file I/O — the foundation for all tools
+         in this portfolio.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025</div>
+      <h3>EMC 2025 — Team Lead, Team Technophile</h3>
+      <p>Led 6-member team at Engineering Model Competition.
+         Germicidal Washing Machine with UV-C safety interlock logic —
+         sensor-gated sterilisation cycle to prevent UV-C exposure during operation.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025–26</div>
+      <h3>DCAP — Diploma in Computer Applications &amp; Programming</h3>
+      <p>IICS Gokulpuri. Networking protocols, OS fundamentals, relational databases,
+         web development. Currently in progress.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// skills</div>
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <h3>Languages</h3>
+      <ul>
+        <li>C (primary)</li>
+        <li>C++</li>
+        <li>HTML / CSS</li>
+        <li>Python (learning)</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Security</h3>
+      <ul>
+        <li>Network enumeration</li>
+        <li>File integrity monitoring</li>
+        <li>Binary forensics</li>
+        <li>Steganography &amp; detection</li>
+        <li>Cryptanalysis</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Networking</h3>
+      <ul>
+        <li>TCP/IP stack</li>
+        <li>Socket programming</li>
+        <li>Port enumeration</li>
+        <li>DNS, HTTP, SMTP basics</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Concepts</h3>
+      <ul>
+        <li>Shannon entropy</li>
+        <li>Frequency analysis</li>
+        <li>Covert channels</li>
+        <li>HIDS principles</li>
+        <li>Magic byte analysis</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Currently Learning</h3>
+      <ul>
+        <li>TryHackMe (active)</li>
+        <li>OWASP Top 10</li>
+        <li>Linux internals</li>
+        <li>Reverse engineering basics</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Hardware</h3>
+      <ul>
+        <li>Electromechanical design</li>
+        <li>Relay / motor control</li>
+        <li>DC/AC conversion</li>
+        <li>Sensor integration</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// contact</div>
+  <h2>Get In Touch</h2>
+  <p>Open to opportunities, collaborations, and feedback on my work.</p>
+  <div class="contact-links">
+    <a href="mailto:thetechnophile2023@gmail.com" class="contact-card">
+      ✉ thetechnophile2023@gmail.com
+    </a>
+    <a href="https://github.com/krishnaaggarwal-Cybersecurity/cybersecurity-portfolio"
+       class="contact-card" target="_blank">
+      ⌥ GitHub Repository
+    </a>
+  </div>
+</section>
+
+<footer>
+  &lt;/&gt; built by Krishna Aggarwal · Ghaziabad, NCR · 2026
+</footer>
+
+</body>
+</html>
